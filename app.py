@@ -18,6 +18,33 @@ def create_app(db_name, testing=False):
     else:
         app.config['SQLALCHEMY_ECHO'] = True 
     
+    @app.route('/api/cupcakes')
+    def get_all_cupcakes():
+        """Returns information about all the cupackes in the form of JSON. Shows information about their id, flavor, size, rating,
+        and image url."""
+
+        all_cupcakes = [cupcake.serialize() for cupcake in Cupcake.query.all()]
+        return jsonify(cupcakes=all_cupcakes)
+    
+    @app.route('/api/cupcakes/<int: cupcake_id>')
+    def get_cupcake(cupcake_id):
+        """Returns information about a specific cupcake whose id in the cupcakes table matches the cupcake_id provided."""
+
+        cupcake = Cupcake.query.get_or_404(cupcake_id)
+        return jsonify(cupcakes=cupcake.serialize())
+    
+    @app.route('/api/cupcakes', methods=["POST"])
+    def create_cupcake():
+        """Creates a new cupcake with a flavor, size, rating, and optional image url. Adds the new cupcake to the database
+        and responds with JSON showing information about the new cupcake added."""
+
+        new_cupcake = Cupcake(flavor=request.json["flavor"], size=request.json["size"], rating=request.json["rating"], image_url=request.json.get('image_url', None))
+        db.session.add(new_cupcake)
+        db.session.commit()
+
+        response_json = jsonify(cupcake=new_cupcake.serialize())
+        return (response_json, 201)
+
     return app
 
 if __name__ == '__main__':
