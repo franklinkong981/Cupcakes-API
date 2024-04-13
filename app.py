@@ -18,6 +18,11 @@ def create_app(db_name, testing=False):
     else:
         app.config['SQLALCHEMY_ECHO'] = True 
     
+    @app.route('/')
+    def get_homepage():
+        """Renders the home page which will display a list of cupcakes and a form to add a cupcake."""
+        return render_template("homepage.html")
+
     @app.route('/api/cupcakes')
     def get_all_cupcakes():
         """Returns information about all the cupackes in the form of JSON. Shows information about their id, flavor, size, rating,
