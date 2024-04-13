@@ -1,4 +1,5 @@
 const cupcakesList = document.querySelector(".cupcakes-list");
+const addCupcakeForm = document.querySelector(".add-cupcake-form")
 
 function createNewCupcake(flavor, size, rating, image_url) {
     const newCupcake = document.createElement("li");
@@ -42,5 +43,17 @@ async function displayCupcakes() {
         cupcakesList.append(newCupcake);
     }
 }
+
+addCupcakeForm.addEventListener('submit', async function(event) {
+    event.preventDefault();
+    let flavor = document.getElementById("flavor-field").value;
+    let size = document.getElementById("size-field").value;
+    let rating = document.getElementById("rating-field").value;
+    let image_url = document.getElementById("image-url-field").value;
+
+    const response = await axios.post('/api/cupcakes', {flavor: flavor, size: size, rating: rating, image_url: image_url});
+    const newCupcake = createNewCupcake(flavor, size, rating, image_url);
+    cupcakesList.append(newCupcake);
+})
 
 displayCupcakes();

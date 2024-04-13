@@ -14,6 +14,26 @@
 
         </ul>
 
+        <form class="add-cupcake-form">
+            <div class="form-group">
+              <label for="flavor-field">Flavor: </label>
+              <input type="text" class="form-control" id="flavor-field" placeholder="Enter the new cupcake's flavor">
+            </div>
+            <div class="form-group">
+              <label for="size-field">Size: </label>
+              <input type="text" class="form-control" id="size-field" placeholder="Enter the new cupcake's size">
+            </div>
+            <div class="form-group">
+                <label for="rating-field">Rating: </label>
+                <input type="text" class="form-control" id="rating-field" placeholder="Enter the new cupcake's rating">
+              </div>
+            <div class="form-group">
+                <label for="image-url-field">Image URL: </label>
+                <input type="url" class="form-control" id="image-url-field" placeholder="Enter the URL for the new cupcake's image">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+
         <script src="https://unpkg.com/axios/dist/axios.js"></script>
         <script src="static/cupcakes.js"></script>
     </body>
