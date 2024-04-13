@@ -26,12 +26,12 @@ def create_app(db_name, testing=False):
         all_cupcakes = [cupcake.serialize() for cupcake in Cupcake.query.all()]
         return jsonify(cupcakes=all_cupcakes)
     
-    @app.route('/api/cupcakes/<int: cupcake_id>')
+    @app.route('/api/cupcakes/<int:cupcake_id>')
     def get_cupcake(cupcake_id):
         """Returns information about a specific cupcake whose id in the cupcakes table matches the cupcake_id provided."""
 
         cupcake = Cupcake.query.get_or_404(cupcake_id)
-        return jsonify(cupcakes=cupcake.serialize())
+        return jsonify(cupcake=cupcake.serialize())
     
     @app.route('/api/cupcakes', methods=["POST"])
     def create_cupcake():
